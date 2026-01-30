@@ -1,14 +1,13 @@
 package org.aditya;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.*;
 
 import java.util.List;
 
 @Entity
 public class Alien {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int aid;
     //@Column(name="alien_name") to change the column name in database
     private String aname;
@@ -22,15 +21,18 @@ public class Alien {
     other class;
     here "alien" is the variable name used in Laptop class
      */
-    @OneToMany(mappedBy = "alien")
+    //@OneToMany(mappedBy = "alien")
+    /*
+        @ManyToMany creating 2 more reference table for mapping
+        because both class is thinking it is their responsibility
+        to map the table.
+        We have to tell them one of you map it, not both
+     */
+    @ManyToMany
     private List<Laptop> laptops;
 
     public int getAid() {
         return aid;
-    }
-
-    public void setAid(int aid) {
-        this.aid = aid;
     }
 
     public String getAname() {

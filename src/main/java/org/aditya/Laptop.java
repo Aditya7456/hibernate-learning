@@ -1,27 +1,24 @@
 package org.aditya;
 
-import jakarta.persistence.Embeddable;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.*;
+
+import java.util.List;
 
 //@Embeddable // so that we can embed in alien table without creating a new laptop table
 @Entity
 public class Laptop{
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int lid;
     private String brand;
     private String model;
     private int ram;
-    @ManyToOne
-    private Alien alien;
+    //@ManyToOne
+    @ManyToMany(mappedBy = "laptops") // it will not do its mapping
+    private List<Alien> aliens;
 
     public int getLid() {
         return lid;
-    }
-
-    public void setLid(int lid) {
-        this.lid = lid;
     }
 
     public String getBrand() {
@@ -48,12 +45,12 @@ public class Laptop{
         this.ram = ram;
     }
 
-    public Alien getAlien() {
-        return alien;
+    public List<Alien> getAliens() {
+        return aliens;
     }
 
-    public void setAlien(Alien alien) {
-        this.alien = alien;
+    public void setAliens(List<Alien> aliens) {
+        this.aliens = aliens;
     }
 
     @Override
