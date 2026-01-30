@@ -28,7 +28,12 @@ public class Alien {
         to map the table.
         We have to tell them one of you map it, not both
      */
-    @ManyToMany
+    //@ManyToMany
+    /* if we have a collection in entity so by default
+       it use lazy-fetch and don't load the entire object until it neeeded
+       EAGER -> it fetches entire object even if it is not needed.
+         */
+    @OneToMany(fetch = FetchType.EAGER)
     private List<Laptop> laptops;
 
     public int getAid() {

@@ -9,8 +9,8 @@
         <property name="hibernate.hbm2ddl.auto">create</property>
         <!-- to show the sql query which hibernate is generating in the backend -->
         <property name="hibernate.show_sql">true</property>
-        <!-- format the sql query properly -->
-        <property name="hibernate.format_sql">true</property>
+        <!-- format the sql query properly
+        <property name="hibernate.format_sql">true</property> -->
         <!-- Dialect tells Hibernate which database you are using and how to generate SQL for it. -->
         <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
     </session-factory>
