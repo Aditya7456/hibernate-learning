@@ -7,7 +7,7 @@ import org.hibernate.cfg.Configuration;
 
 public class Main {
     public static void main(String[] args) {
-        Student s1 = null;
+        //Student s1 = null;
 //        Student s1 = new Student();
 //        s1.setName("Poonam");
 //        s1.setRollNo(201);
@@ -28,21 +28,28 @@ public class Main {
         //cfg.configure();
         // now need a object of SessionFactory
         //SessionFactory sf = cfg.buildSessionFactory();
+
+        Alien a1 = new Alien();
+        a1.setAid(101);
+        a1.setAname("Rahul");
+        a1.setTech("Java");
+
         SessionFactory factory = new Configuration()
-                            .addAnnotatedClass(Student.class)
+                            .addAnnotatedClass(Alien.class)
                             .configure()
                             .buildSessionFactory();
         // now need session object
         Session session = factory.openSession();
 
-        s1 = session.find(Student.class,119);
+        //s1 = session.find(Student.class,119);
         // create the object of Transaction
         Transaction transaction = session.beginTransaction();
         //s2 = session.find(Student.class,103);
         //session.merge(s1); it will update and save based on if data is there or not
         // to update the data save() is depricated.
         // now deleting the studen from the database;
-        session.remove(s1);
+        //session.remove(s1);
+        session.persist(a1);
 
 
         //session.persist(s1); // to persist the data in the database
@@ -50,7 +57,7 @@ public class Main {
         factory.close();
         session.close();
 
-        System.out.println(s1);
+        System.out.println(a1);
     }
 }
 

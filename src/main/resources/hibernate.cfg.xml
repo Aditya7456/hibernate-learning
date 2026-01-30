@@ -6,7 +6,7 @@
         <property name="hibernate.connection.username">root</property>
         <property name="hibernate.connection.password">admin</property>
         <!-- it will create table if it is not there and update it, if it is there -->
-        <property name="hibernate.hbm2ddl.auto">update</property>
+        <property name="hibernate.hbm2ddl.auto">create</property>
         <!-- to show the sql query which hibernate is generating in the backend -->
         <property name="hibernate.show_sql">true</property>
         <!-- format the sql query properly -->
