@@ -1,12 +1,12 @@
 package org.aditya;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 
-// if i add the name property in @Entity then it will change the entity and table name both
-// but if i use the @Table property then it will change the table name only
-//@Entity(name = "alien_details")
+import java.util.List;
+
 @Entity
-//@Table(name = "alien_details")
 public class Alien {
     @Id
     private int aid;
@@ -14,8 +14,16 @@ public class Alien {
     private String aname;
     //@Transient // if we don't want this variable to store in database then we can use this annotation
     private String tech;
-    @OneToOne // one alient having one laptop so using OneToONe mapping
-    private Laptop laptop;
+    //@OneToOne // one alient having one laptop so using OneToONe mapping
+    // one alien having mulitple laptops
+    /*
+    By this mappedBy we are telling to Alient class that you don't create any
+    new table to keep the reference, let it handle by the mappedBy variable or
+    other class;
+    here "alien" is the variable name used in Laptop class
+     */
+    @OneToMany(mappedBy = "alien")
+    private List<Laptop> laptops;
 
     public int getAid() {
         return aid;
@@ -41,12 +49,12 @@ public class Alien {
         this.tech = tech;
     }
 
-    public Laptop getLaptop() {
-        return laptop;
+    public List<Laptop> getLaptops() {
+        return laptops;
     }
 
-    public void setLaptop(Laptop laptop) {
-        this.laptop = laptop;
+    public void setLaptops(List<Laptop> laptops) {
+        this.laptops = laptops;
     }
 
     @Override
@@ -55,7 +63,7 @@ public class Alien {
                 "aid=" + aid +
                 ", aname='" + aname + '\'' +
                 ", tech='" + tech + '\'' +
-                ", laptop=" + laptop +
+                ", laptops=" + laptops +
                 '}';
     }
 }

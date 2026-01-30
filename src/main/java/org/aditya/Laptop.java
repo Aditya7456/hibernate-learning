@@ -3,6 +3,7 @@ package org.aditya;
 import jakarta.persistence.Embeddable;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
 
 //@Embeddable // so that we can embed in alien table without creating a new laptop table
 @Entity
@@ -12,6 +13,8 @@ public class Laptop{
     private String brand;
     private String model;
     private int ram;
+    @ManyToOne
+    private Alien alien;
 
     public int getLid() {
         return lid;
@@ -43,6 +46,14 @@ public class Laptop{
 
     public void setRam(int ram) {
         this.ram = ram;
+    }
+
+    public Alien getAlien() {
+        return alien;
+    }
+
+    public void setAlien(Alien alien) {
+        this.alien = alien;
     }
 
     @Override

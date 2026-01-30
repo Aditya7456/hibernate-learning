@@ -5,6 +5,8 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
 
+import java.util.Arrays;
+
 public class Main {
     public static void main(String[] args) {
         //Student s1 = null;
@@ -34,11 +36,20 @@ public class Main {
         l1.setModel("probook");
         l1.setRam(16);
 
+        Laptop l2 = new Laptop();
+        l2.setLid(2);
+        l2.setBrand("Asus");
+        l2.setModel("Rog");
+        l2.setRam(16);
+
         Alien a1 = new Alien();
         a1.setAid(101);
         a1.setAname("Rahul");
         a1.setTech("Java");
-        a1.setLaptop(l1);
+        a1.setLaptops(Arrays.asList(l1,l2));
+
+        l1.setAlien(a1);
+        l2.setAlien(a1);
 
         SessionFactory factory = new Configuration()
                             .addAnnotatedClass(Alien.class)
@@ -57,6 +68,7 @@ public class Main {
         // now deleting the studen from the database;
         //session.remove(s1);
         session.persist(l1);
+        session.persist(l2);
         session.persist(a1);
 
 
