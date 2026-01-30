@@ -28,14 +28,21 @@ public class Main {
         //cfg.configure();
         // now need a object of SessionFactory
         //SessionFactory sf = cfg.buildSessionFactory();
+        Laptop l1 = new Laptop();
+        l1.setLid(1);
+        l1.setBrand("hp");
+        l1.setModel("probook");
+        l1.setRam(16);
 
         Alien a1 = new Alien();
         a1.setAid(101);
         a1.setAname("Rahul");
         a1.setTech("Java");
+        a1.setLaptop(l1);
 
         SessionFactory factory = new Configuration()
                             .addAnnotatedClass(Alien.class)
+                            .addAnnotatedClass(Laptop.class)
                             .configure()
                             .buildSessionFactory();
         // now need session object
@@ -49,6 +56,7 @@ public class Main {
         // to update the data save() is depricated.
         // now deleting the studen from the database;
         //session.remove(s1);
+        session.persist(l1);
         session.persist(a1);
 
 
