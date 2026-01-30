@@ -1,0 +1,7 @@
+HQL - Hibernate Query Language
+* we need this when we want to filter the data based on some complex variable,
+* offcourse we can use SQL also in that case it is called native query,
+* so here we will use HQL.
+
+like in sql if we want to select all data -> select * from student;
+but in hql if we want to select all data -> from Student;
