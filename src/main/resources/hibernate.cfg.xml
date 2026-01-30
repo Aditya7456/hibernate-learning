@@ -1,0 +1,17 @@
+<hibernate-configuration xmlns="http://www.hibernate.org/xsd/orm/cfg">
+    <session-factory>
+        <!-- hibernate configuration -->
+        <property name="hibernate.connection.driver_class">com.mysql.cj.jdbc.Driver</property>
+        <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/adityadb</property>
+        <property name="hibernate.connection.username">root</property>
+        <property name="hibernate.connection.password">admin</property>
+        <!-- it will create table if it is not there and update it, if it is there -->
+        <property name="hibernate.hbm2ddl.auto">update</property>
+        <!-- to show the sql query which hibernate is generating in the backend -->
+        <property name="hibernate.show_sql">true</property>
+        <!-- format the sql query properly -->
+        <property name="hibernate.format_sql">true</property>
+        <!-- Dialect tells Hibernate which database you are using and how to generate SQL for it. -->
+        <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
+    </session-factory>
+</hibernate-configuration>
