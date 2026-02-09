@@ -21,11 +21,18 @@ public class Main {
         // in sql use tableName
         // if we sql then we have to write "select * from laptop where ram=32";
         // if hql then "from Laptop where ram=32"; // use className
-        Query query = session.createQuery("from Laptop where ram=32");
-        List<Laptop> laptops = query.getResultList();
+        String brand = "Asus";
+        int ram = 32    ;
+        Query query = session.createQuery("select brand,model from Laptop where brand like ?1");
+        query.setParameter(1, brand);
+        //query.setParameter(2, ram);
+        List<Object[]> laptops = query.getResultList();
 
         // Laptop l1 = session.find(Laptop.class,3);
-        System.out.println(laptops);
+        //System.out.println(laptops);
+        for(Object []data: laptops){
+            System.out.println(data[0] + " "  + data[1]);
+        }
         session.close();
         factory.close();
     }
