@@ -10,3 +10,8 @@ in hql we use entity or ClassName
 
 * in jdbc query result gives us resultSet
 * in hibernate query return the resultList of entity type only
+
+/* Eager loading -> session.get(Laptop.class, 1);
+    * it will load data even if we print or not.
+/* Lazy Loading ->  session.getReference(Laptop.class, 1);
+    * it will now load data until we use it.
