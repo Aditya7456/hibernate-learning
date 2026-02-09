@@ -4,4 +4,9 @@ HQL - Hibernate Query Language
 * so here we will use HQL.
 
 like in sql if we want to select all data -> select * from student;
+in sql we use tablename
 but in hql if we want to select all data -> from Student;
+in hql we use entity or ClassName
+
+* in jdbc query result gives us resultSet
+* in hibernate query return the resultList of entity type only

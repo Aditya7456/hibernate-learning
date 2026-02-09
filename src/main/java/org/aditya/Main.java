@@ -4,8 +4,10 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
+import org.hibernate.query.Query;
 
 import java.util.Arrays;
+import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
@@ -16,12 +18,16 @@ public class Main {
                             .buildSessionFactory();
         // now need session object
         Session session = factory.openSession();
-        Laptop l1 = session.find(Laptop.class,3);
-        System.out.println(l1);
+        // in sql use tableName
+        // if we sql then we have to write "select * from laptop where ram=32";
+        // if hql then "from Laptop where ram=32"; // use className
+        Query query = session.createQuery("from Laptop where ram=32");
+        List<Laptop> laptops = query.getResultList();
+
+        // Laptop l1 = session.find(Laptop.class,3);
+        System.out.println(laptops);
         session.close();
         factory.close();
-
-
     }
 }
 
