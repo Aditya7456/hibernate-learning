@@ -6,6 +6,11 @@ import java.util.List;
 
 //@Embeddable // so that we can embed in alien table without creating a new laptop table
 @Entity
+@Cacheable // to enable the l2 ehcache
+@org.hibernate.annotations.Cache(
+        usage = org.hibernate.annotations.CacheConcurrencyStrategy.READ_ONLY
+)
+
 public class Laptop{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

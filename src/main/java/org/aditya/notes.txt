@@ -15,3 +15,103 @@ in hql we use entity or ClassName
     * it will load data even if we print or not.
 /* Lazy Loading ->  session.getReference(Laptop.class, 1);
     * it will now load data until we use it.
+
+----------------------------    Hibernate Cache ----------------------------
+🧠 What is Hibernate Cache?
+Hibernate cache stores database data in memory to:
+    *Reduce DB hits
+    *Improve performance
+    *Speed up applications
+
+Hibernate has 2 cache levels:
+
+🔹Level 1 Cache (L1) – Default
+    Session → L1 Cache → Database
+    Session session = sessionFactory.openSession();
+
+    Laptop l1 = session.get(Laptop.class, 1); // DB hit
+    Laptop l2 = session.get(Laptop.class, 1); // NO DB hit (from L1)
+
+    session.close();
+    ✔ Second call is served from L1 cache
+
+    **Important points (INTERVIEW GOLD)
+        *Exists only while session is open
+        *Cleared when session closes
+        *Prevents duplicate DB calls in same transaction
+        *Always ON
+    🔹 When L1 cache is cleared
+        session.clear();   // clears entire cache
+        session.evict(obj); // removes specific object
+
+🔹Level 2 Cache (L2) – Optional
+    2️⃣ Level 2 Cache (Second-Level Cache)
+    🔹 What it is
+        Cache shared across sessions
+        Optional
+        Needs external providers
+    🔹 Scope
+        👉 SessionFactory-wide
+        Session1 ┐
+        Session2 ├─→ L2 Cache → Database
+        Session3 ┘
+
+        Session session1 = sessionFactory.openSession();
+        Laptop l1 = session1.get(Laptop.class, 1); // DB hit → stored in L2
+        session1.close();
+
+        Session session2 = sessionFactory.openSession();
+        Laptop l2 = session2.get(Laptop.class, 1); // NO DB hit (from L2)
+        ✔ Data reused across sessions
+
+    🔹 Cache Providers
+        Common ones:
+            *Ehcache
+            *Hazelcast
+            *Infinispan
+            *Redis (via integration)
+
+    🔹 Enable L2 Cache (example)
+        spring.jpa.properties.hibernate.cache.use_second_level_cache=true
+        spring.jpa.properties.hibernate.cache.region.factory_class=org.hibernate.cache.ehcache.EhCacheRegionFactory
+
+    🔹 Entity-level annotation
+        @Entity
+        @Cacheable
+        @org.hibernate.annotations.Cache(
+            usage = CacheConcurrencyStrategy.READ_ONLY
+        )
+        public class Laptop {
+        }
+
+    🔄 Cache Flow (Very Important)
+        Request
+         ↓
+        Level 1 Cache (Session)
+         ↓
+        Level 2 Cache (SessionFactory)
+         ↓
+        Database
+
+        * Hibernate always checks L1 → L2 → DB
+
+        | Feature          | Level 1 Cache    | Level 2 Cache  |
+        | ---------------- | ---------------- | -------------- |
+        | Default          | ✅ Yes            | ❌ No           |
+        | Scope            | Session          | SessionFactory |
+        | Shared           | ❌ No             | ✅ Yes          |
+        | Config needed    | ❌ No             | ✅ Yes          |
+        | Performance gain | Medium           | High           |
+        | Use case         | Same transaction | High-read apps |
+
+        ❗ Why NOT cache everything?
+            Bad candidates:
+            Frequently changing data
+            Large tables
+            Transactional records
+            Good candidates:
+            Master data
+            Lookup tables
+            Read-heavy entities
+* to use l2 cache we manually need to manually implement it
+1.

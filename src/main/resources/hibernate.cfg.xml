@@ -13,5 +13,13 @@
         <property name="hibernate.format_sql">true</property> -->
         <!-- Dialect tells Hibernate which database you are using and how to generate SQL for it. -->
         <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
+        <!-- L2 CACHE CONFIG -->
+        <!-- L2 Cache Configuration -->
+        <property name="hibernate.cache.use_second_level_cache">true</property>
+        <property
+                name="hibernate.cache.region.factory_class">org.hibernate.cache.jcache.JCacheRegionFactory</property>
+        <property
+                name="hibernate.jakarta.cache.provider">org.ehcache.jsr107.EhcacheCachingProvider
+        </property>
     </session-factory>
 </hibernate-configuration>
